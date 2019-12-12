@@ -14,7 +14,6 @@
 Route::get('/', 'HomeController@getHome');
 
 Route::group(['prefix' => 'catalog', 'middleware' => 'auth'], function() {
-    Route::get('/', 'CatalogController@getIndex');
 
     Route::get('show/{id}', 'CatalogController@getShow')->where('id', '[0-9]+');
 
@@ -25,7 +24,7 @@ Route::group(['prefix' => 'catalog', 'middleware' => 'auth'], function() {
     Route::put('edit', 'CatalogController@putEdit');
 
 });
-
 Auth::routes();
 
+Route::get('/', 'CatalogController@getIndex');
 Route::get('/home', 'HomeController@index')->name('home');

@@ -23,15 +23,25 @@
                         </div>
 
                         <div class="form-group">
+                                <label for="year">Year</label>
                             <input type="number" min="1900" max="2030" name="year" placeholder="A&ntilde;o" value="{{ $pelicula->year }}">
                         </div>
 
                         <div class="form-group">
+                                <label for="director">Director</label>
                             <input type="text" name="director" placeholder="Director" value="{{ $pelicula->director }}">
                         </div>
 
-                        <div class="form-group">
-                            <input type="url" name="poster" placeholder="url del poster" value="{{ $pelicula->poster }}">
+                        <div class="form-group" enctype="multipart/form-data">
+                            <?php
+                            if($request ?? ''->exists('poster')) {
+                                $pelicula->poster = Storage::disk('public')->putFile('posters', $request ?? ''->file('poster'));
+                            }
+                            ?>
+                            <label for="poster">Seleccionar imagen del poster:</label>
+                            <br>
+                            <input type="file" id="poster" name="poster" value="asset('storage/' . $pelicula->poster)">
+                            {{--<input type="url" name="poster" placeholder="url del poster" value="{{ $pelicula->poster }}">--}}
                         </div>
 
                         <div class="form-group">
